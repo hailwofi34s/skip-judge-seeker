@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Shield, AlertTriangle, CheckCircle, User, Calendar, Code } from 'lucide-react';
+import { Search, Shield, AlertTriangle, CheckCircle, User, Calendar, Code, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -147,6 +147,20 @@ const Index = () => {
     return 'text-red-600';
   };
 
+  const getSubmissionUrl = (submission: Submission) => {
+    if (submission.contestId) {
+      return `https://codeforces.com/contest/${submission.contestId}/submission/${submission.id}`;
+    }
+    return `https://codeforces.com/problemset/submission/${submission.id}`;
+  };
+
+  const getProblemUrl = (submission: Submission) => {
+    if (submission.problem.contestId) {
+      return `https://codeforces.com/contest/${submission.problem.contestId}/problem/${submission.problem.index}`;
+    }
+    return `https://codeforces.com/problemset/problem/${submission.problem.contestId}/${submission.problem.index}`;
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-4">
       <div className="max-w-4xl mx-auto">
@@ -288,6 +302,7 @@ const Index = () => {
                         <TableHead>Date</TableHead>
                         <TableHead>Rating</TableHead>
                         <TableHead>Status</TableHead>
+                        <TableHead>Links</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -328,6 +343,28 @@ const Index = () => {
                           </TableCell>
                           <TableCell>
                             <Badge variant="destructive">SKIPPED</Badge>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex gap-2">
+                              <a
+                                href={getSubmissionUrl(submission)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors"
+                              >
+                                <ExternalLink className="h-3 w-3" />
+                                Submission
+                              </a>
+                              <a
+                                href={getProblemUrl(submission)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-xs bg-green-100 hover:bg-green-200 text-green-700 px-2 py-1 rounded transition-colors"
+                              >
+                                <ExternalLink className="h-3 w-3" />
+                                Problem
+                              </a>
+                            </div>
                           </TableCell>
                         </TableRow>
                       ))}
