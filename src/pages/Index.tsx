@@ -162,234 +162,246 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center items-center gap-3 mb-4">
-            <Shield className="h-10 w-10 text-indigo-600" />
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              CPI7 Cheater Detector
-            </h1>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header - Codeforces style */}
+      <div className="bg-blue-600 text-white shadow-md">
+        <div className="max-w-6xl mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Shield className="h-8 w-8" />
+              <h1 className="text-2xl font-bold">CPI7 Cheater Detector</h1>
+            </div>
+            <div className="text-sm">
+              Analyze Codeforces submissions for cheating patterns
+            </div>
           </div>
-          <p className="text-gray-600 text-lg">
-            Analyze user submissions to detect potential cheating patterns
-          </p>
         </div>
+      </div>
 
-        {/* Search Section */}
-        <Card className="mb-8 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Search className="h-5 w-5" />
+      <div className="max-w-6xl mx-auto px-4 py-6">
+        {/* Search Section - Codeforces style */}
+        <div className="bg-white border border-gray-200 rounded mb-6 shadow-sm">
+          <div className="bg-gray-100 border-b border-gray-200 px-4 py-2">
+            <h2 className="font-semibold text-gray-800 flex items-center gap-2">
+              <Search className="h-4 w-4" />
               Enter Username
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+            </h2>
+          </div>
+          <div className="p-4">
             <div className="flex gap-3">
               <Input
                 placeholder="Enter Codeforces username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && analyzeUser()}
-                className="flex-1"
+                className="flex-1 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
               <Button 
                 onClick={analyzeUser} 
                 disabled={loading}
-                className="bg-indigo-600 hover:bg-indigo-700"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6"
               >
                 {loading ? 'Analyzing...' : 'Analyze'}
               </Button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        {/* User Info */}
+        {/* User Info - Codeforces style */}
         {userInfo && (
-          <Card className="mb-6 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <User className="h-5 w-5" />
+          <div className="bg-white border border-gray-200 rounded mb-6 shadow-sm">
+            <div className="bg-gray-100 border-b border-gray-200 px-4 py-2">
+              <h2 className="font-semibold text-gray-800 flex items-center gap-2">
+                <User className="h-4 w-4" />
                 User Information
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+              </h2>
+            </div>
+            <div className="p-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <p className="font-semibold text-gray-700">Handle</p>
-                  <p className="text-lg">{userInfo.handle}</p>
+                  <span className="text-gray-600 text-sm">Handle:</span>
+                  <div className="font-semibold text-lg">{userInfo.handle}</div>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-700">Rating</p>
-                  <p className={`text-lg font-bold ${getRatingColor(userInfo.rating)}`}>
+                  <span className="text-gray-600 text-sm">Rating:</span>
+                  <div className={`font-bold text-lg ${getRatingColor(userInfo.rating)}`}>
                     {userInfo.rating || 'Unrated'}
-                  </p>
+                  </div>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-700">Max Rating</p>
-                  <p className={`text-lg font-bold ${getRatingColor(userInfo.maxRating)}`}>
+                  <span className="text-gray-600 text-sm">Max Rating:</span>
+                  <div className={`font-bold text-lg ${getRatingColor(userInfo.maxRating)}`}>
                     {userInfo.maxRating || 'Unrated'}
-                  </p>
+                  </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         )}
 
         {/* Results */}
         {result && (
           <div className="space-y-6">
-            {/* Analysis Summary */}
-            <Card className={`shadow-lg border-0 ${result.isCheat ? 'bg-red-50' : 'bg-green-50'}`}>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+            {/* Analysis Summary - Codeforces style */}
+            <div className={`bg-white border rounded shadow-sm ${result.isCheat ? 'border-red-300' : 'border-green-300'}`}>
+              <div className={`border-b px-4 py-2 ${result.isCheat ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}`}>
+                <h2 className="font-semibold text-gray-800 flex items-center gap-2">
                   {result.isCheat ? (
-                    <AlertTriangle className="h-6 w-6 text-red-600" />
+                    <AlertTriangle className="h-4 w-4 text-red-600" />
                   ) : (
-                    <CheckCircle className="h-6 w-6 text-green-600" />
+                    <CheckCircle className="h-4 w-4 text-green-600" />
                   )}
                   Analysis Result
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-gray-800">{result.totalSubmissions}</p>
-                    <p className="text-sm text-gray-600">Total Submissions</p>
+                </h2>
+              </div>
+              <div className="p-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                  <div className="text-center p-3 bg-gray-50 rounded">
+                    <div className="text-2xl font-bold text-gray-800">{result.totalSubmissions}</div>
+                    <div className="text-sm text-gray-600">Total Submissions</div>
                   </div>
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-red-600">{result.skippedSubmissions}</p>
-                    <p className="text-sm text-gray-600">Skipped Submissions</p>
+                  <div className="text-center p-3 bg-red-50 rounded">
+                    <div className="text-2xl font-bold text-red-600">{result.skippedSubmissions}</div>
+                    <div className="text-sm text-gray-600">Skipped Submissions</div>
                   </div>
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-orange-600">{result.skippedPercentage.toFixed(1)}%</p>
-                    <p className="text-sm text-gray-600">Skipped Percentage</p>
+                  <div className="text-center p-3 bg-orange-50 rounded">
+                    <div className="text-2xl font-bold text-orange-600">{result.skippedPercentage.toFixed(1)}%</div>
+                    <div className="text-sm text-gray-600">Skipped Percentage</div>
                   </div>
-                  <div className="text-center">
-                    <Badge variant={result.isCheat ? "destructive" : "default"} className="text-lg px-4 py-2">
+                  <div className="text-center p-3 bg-gray-50 rounded">
+                    <span className={`inline-block px-3 py-1 rounded text-sm font-semibold ${
+                      result.isCheat 
+                        ? 'bg-red-100 text-red-800 border border-red-200' 
+                        : 'bg-green-100 text-green-800 border border-green-200'
+                    }`}>
                       {result.isCheat ? "SUSPICIOUS" : "CLEAN"}
-                    </Badge>
+                    </span>
                   </div>
                 </div>
                 
-                <div className={`p-4 rounded-lg ${result.isCheat ? 'bg-red-100' : 'bg-green-100'}`}>
-                  <p className={`font-semibold ${result.isCheat ? 'text-red-800' : 'text-green-800'}`}>
-                    {result.isCheat 
-                      ? '⚠️ This user has suspicious activity! Skipped verdicts often indicate plagiarism detection.'
-                      : '✅ No suspicious activity detected. This user appears to be clean.'}
-                  </p>
+                <div className={`p-3 rounded text-sm ${
+                  result.isCheat 
+                    ? 'bg-red-50 text-red-800 border border-red-200' 
+                    : 'bg-green-50 text-green-800 border border-green-200'
+                }`}>
+                  {result.isCheat 
+                    ? '⚠️ This user has suspicious activity! Skipped verdicts often indicate plagiarism detection.'
+                    : '✅ No suspicious activity detected. This user appears to be clean.'}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            {/* Suspicious Submissions Table */}
+            {/* Suspicious Submissions Table - Codeforces style */}
             {result.isCheat && result.suspiciousSubmissions.length > 0 && (
-              <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Code className="h-5 w-5" />
+              <div className="bg-white border border-gray-200 rounded shadow-sm">
+                <div className="bg-gray-100 border-b border-gray-200 px-4 py-2">
+                  <h2 className="font-semibold text-gray-800 flex items-center gap-2">
+                    <Code className="h-4 w-4" />
                     Skipped Submissions ({result.suspiciousSubmissions.length})
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Problem</TableHead>
-                        <TableHead>Contest</TableHead>
-                        <TableHead>Language</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Rating</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Links</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {result.suspiciousSubmissions.map((submission) => (
-                        <TableRow key={submission.id} className="bg-red-50/50">
-                          <TableCell>
+                  </h2>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead className="bg-gray-50 border-b border-gray-200">
+                      <tr>
+                        <th className="text-left px-4 py-3 font-medium text-gray-600">Problem</th>
+                        <th className="text-left px-4 py-3 font-medium text-gray-600">Contest</th>
+                        <th className="text-left px-4 py-3 font-medium text-gray-600">Language</th>
+                        <th className="text-left px-4 py-3 font-medium text-gray-600">Date</th>
+                        <th className="text-left px-4 py-3 font-medium text-gray-600">Rating</th>
+                        <th className="text-left px-4 py-3 font-medium text-gray-600">Status</th>
+                        <th className="text-left px-4 py-3 font-medium text-gray-600">Links</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {result.suspiciousSubmissions.map((submission, index) => (
+                        <tr key={submission.id} className={`border-b border-gray-100 hover:bg-gray-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-25'}`}>
+                          <td className="px-4 py-3">
                             <div>
-                              <p className="font-medium text-gray-900">{submission.problem.name}</p>
-                              <p className="text-sm text-gray-500">Problem {submission.problem.index}</p>
+                              <div className="font-medium text-blue-600 hover:text-blue-800">
+                                {submission.problem.name}
+                              </div>
+                              <div className="text-xs text-gray-500">Problem {submission.problem.index}</div>
                             </div>
-                          </TableCell>
-                          <TableCell>
+                          </td>
+                          <td className="px-4 py-3">
                             {submission.problem.contestId ? (
-                              <span className="text-sm text-gray-600">Contest {submission.problem.contestId}</span>
+                              <span className="text-blue-600">Contest {submission.problem.contestId}</span>
                             ) : (
-                              <span className="text-sm text-gray-400">No Contest</span>
+                              <span className="text-gray-400">No Contest</span>
                             )}
-                          </TableCell>
-                          <TableCell>
-                            <span className="text-sm font-mono bg-gray-100 px-2 py-1 rounded">
+                          </td>
+                          <td className="px-4 py-3">
+                            <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-mono">
                               {submission.programmingLanguage}
                             </span>
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex items-center gap-1 text-sm text-gray-600">
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-1 text-gray-600">
                               <Calendar className="h-3 w-3" />
                               {formatDate(submission.creationTimeSeconds)}
                             </div>
-                          </TableCell>
-                          <TableCell>
+                          </td>
+                          <td className="px-4 py-3">
                             {submission.problem.rating ? (
-                              <span className={`text-sm font-semibold ${getRatingColor(submission.problem.rating)}`}>
+                              <span className={`font-semibold ${getRatingColor(submission.problem.rating)}`}>
                                 {submission.problem.rating}
                               </span>
                             ) : (
-                              <span className="text-sm text-gray-400">Unrated</span>
+                              <span className="text-gray-400">Unrated</span>
                             )}
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant="destructive">SKIPPED</Badge>
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex gap-2">
+                          </td>
+                          <td className="px-4 py-3">
+                            <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-semibold border border-red-200">
+                              SKIPPED
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="flex gap-1">
                               <a
                                 href={getSubmissionUrl(submission)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors"
+                                className="inline-flex items-center gap-1 text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors border border-blue-200"
                               >
                                 <ExternalLink className="h-3 w-3" />
-                                Submission
+                                Sub
                               </a>
                               <a
                                 href={getProblemUrl(submission)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-xs bg-green-100 hover:bg-green-200 text-green-700 px-2 py-1 rounded transition-colors"
+                                className="inline-flex items-center gap-1 text-xs bg-green-100 hover:bg-green-200 text-green-700 px-2 py-1 rounded transition-colors border border-green-200"
                               >
                                 <ExternalLink className="h-3 w-3" />
-                                Problem
+                                Prob
                               </a>
                             </div>
-                          </TableCell>
-                        </TableRow>
+                          </td>
+                        </tr>
                       ))}
-                    </TableBody>
-                  </Table>
-                </CardContent>
-              </Card>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             )}
           </div>
         )}
 
-        {/* Info Section */}
-        <Card className="mt-8 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle>How it works</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2 text-gray-600">
+        {/* Info Section - Codeforces style */}
+        <div className="bg-white border border-gray-200 rounded mt-6 shadow-sm">
+          <div className="bg-gray-100 border-b border-gray-200 px-4 py-2">
+            <h2 className="font-semibold text-gray-800">How it works</h2>
+          </div>
+          <div className="p-4">
+            <div className="space-y-2 text-gray-700 text-sm">
               <p>• This tool analyzes Codeforces submissions to detect potential cheating</p>
               <p>• "SKIPPED" verdicts often indicate plagiarism detected by Codeforces</p>
               <p>• The analysis is based on publicly available Codeforces API data</p>
               <p>• Multiple skipped submissions may indicate suspicious activity</p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );
