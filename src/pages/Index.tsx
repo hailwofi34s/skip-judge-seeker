@@ -155,7 +155,7 @@ const Index = () => {
           <div className="flex justify-center items-center gap-3 mb-4">
             <Shield className="h-10 w-10 text-indigo-600" />
             <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              Codeforces Cheater Detector
+              CPI7 Cheater Detector
             </h1>
           </div>
           <p className="text-gray-600 text-lg">
