@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import { Search, Shield, AlertTriangle, CheckCircle, User, Calendar, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 
 interface Submission {
@@ -269,46 +269,70 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            {/* Suspicious Submissions */}
+            {/* Suspicious Submissions Table */}
             {result.isCheat && result.suspiciousSubmissions.length > 0 && (
               <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Code className="h-5 w-5" />
-                    Suspicious Submissions (Recent {result.suspiciousSubmissions.length})
+                    Skipped Submissions ({result.suspiciousSubmissions.length})
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    {result.suspiciousSubmissions.map((submission) => (
-                      <div key={submission.id} className="border rounded-lg p-3 bg-red-50">
-                        <div className="flex justify-between items-start mb-2">
-                          <div>
-                            <h4 className="font-semibold text-gray-800">
-                              {submission.problem.name}
-                            </h4>
-                            <p className="text-sm text-gray-600">
-                              Problem {submission.problem.index} 
-                              {submission.problem.contestId && ` • Contest ${submission.problem.contestId}`}
-                            </p>
-                          </div>
-                          <Badge variant="destructive">SKIPPED</Badge>
-                        </div>
-                        <div className="flex items-center gap-4 text-sm text-gray-600">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="h-4 w-4" />
-                            {formatDate(submission.creationTimeSeconds)}
-                          </span>
-                          <span>{submission.programmingLanguage}</span>
-                          {submission.problem.rating && (
-                            <span className={getRatingColor(submission.problem.rating)}>
-                              Rating: {submission.problem.rating}
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Problem</TableHead>
+                        <TableHead>Contest</TableHead>
+                        <TableHead>Language</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Rating</TableHead>
+                        <TableHead>Status</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {result.suspiciousSubmissions.map((submission) => (
+                        <TableRow key={submission.id} className="bg-red-50/50">
+                          <TableCell>
+                            <div>
+                              <p className="font-medium text-gray-900">{submission.problem.name}</p>
+                              <p className="text-sm text-gray-500">Problem {submission.problem.index}</p>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            {submission.problem.contestId ? (
+                              <span className="text-sm text-gray-600">Contest {submission.problem.contestId}</span>
+                            ) : (
+                              <span className="text-sm text-gray-400">No Contest</span>
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            <span className="text-sm font-mono bg-gray-100 px-2 py-1 rounded">
+                              {submission.programmingLanguage}
                             </span>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-1 text-sm text-gray-600">
+                              <Calendar className="h-3 w-3" />
+                              {formatDate(submission.creationTimeSeconds)}
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            {submission.problem.rating ? (
+                              <span className={`text-sm font-semibold ${getRatingColor(submission.problem.rating)}`}>
+                                {submission.problem.rating}
+                              </span>
+                            ) : (
+                              <span className="text-sm text-gray-400">Unrated</span>
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant="destructive">SKIPPED</Badge>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </CardContent>
               </Card>
             )}
