@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -376,6 +375,33 @@ const Index = () => {
               <div>• The analysis is based on publicly available Codeforces API data</div>
               <div>• Multiple skipped submissions may indicate suspicious activity</div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div style={{ 
+        marginTop: '40px',
+        padding: '20px 0',
+        borderTop: '1px solid #e0e0e0',
+        background: '#f8f8f8',
+        fontSize: '12px',
+        color: '#666'
+      }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 10px', textAlign: 'center' }}>
+          <div>
+            Built by{' '}
+            <a 
+              href="https://cpi7.vercel.app/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ color: '#0066cc', textDecoration: 'none' }}
+            >
+              CPI7 Team
+            </a>
+          </div>
+          <div style={{ marginTop: '5px' }}>
+            Founded by Al Kayes Rifat
           </div>
         </div>
       </div>
