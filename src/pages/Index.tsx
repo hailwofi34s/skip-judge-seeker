@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -190,85 +191,78 @@ const Index = () => {
   ];
 
   return (
-    <>
-      {/* SEO Meta Tags */}
-      <div style={{ display: 'none' }}>
-        <h1>CPI7 Competitive Programming Team - Cheater Detection Tool</h1>
-        <p>Advanced Codeforces cheater detection system by CPI7 team. Analyze competitive programming submissions for plagiarism and suspicious activities.</p>
+    <div className="cf-content">
+      {/* Header - Exact Codeforces style */}
+      <div className="cf-header" style={{ padding: '8px 0', fontSize: '13px' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ fontSize: '16px', fontWeight: 'bold' }}>CPI7 Cheater Detector</span>
+              <span style={{ fontSize: '12px', opacity: 0.9 }}>by CPI7 Competitive Programming Team</span>
+            </div>
+            <div style={{ fontSize: '11px' }}>
+              Advanced Codeforces Analysis Tool
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="cf-content">
-        {/* Header - Exact Codeforces style */}
-        <div className="cf-header" style={{ padding: '8px 0', fontSize: '13px' }}>
-          <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 10px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontSize: '16px', fontWeight: 'bold' }}>CPI7 Cheater Detector</span>
-                <span style={{ fontSize: '12px', opacity: 0.9 }}>by CPI7 Competitive Programming Team</span>
-              </div>
-              <div style={{ fontSize: '11px' }}>
-                Advanced Codeforces Analysis Tool
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '10px' }}>
+        {/* Hero Section */}
+        <div className="cf-white-box">
+          <div className="cf-box-header">🏆 CPI7 Competitive Programming Team - Cheater Detection System</div>
+          <div className="cf-box-content">
+            <div style={{ marginBottom: '15px' }}>
+              <h2 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '8px', color: '#333' }}>
+                Professional Codeforces Submission Analysis
+              </h2>
+              <p style={{ fontSize: '13px', lineHeight: '1.5', color: '#666', marginBottom: '10px' }}>
+                Developed by <strong>CPI7 Team</strong> (Cumilla Polytechnic Institute), founded by <strong>Al Kayes Rifat</strong>. 
+                Our advanced detection system analyzes competitive programming submissions to ensure fair competition and maintain integrity in contests.
+              </p>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', fontSize: '12px' }}>
+                <span style={{ background: '#e8f4fd', color: '#0066ff', padding: '4px 8px', borderRadius: '3px' }}>
+                  🔍 Plagiarism Detection
+                </span>
+                <span style={{ background: '#e8f4fd', color: '#0066ff', padding: '4px 8px', borderRadius: '3px' }}>
+                  📊 Statistical Analysis
+                </span>
+                <span style={{ background: '#e8f4fd', color: '#0066ff', padding: '4px 8px', borderRadius: '3px' }}>
+                  ⚡ Real-time Results
+                </span>
               </div>
             </div>
           </div>
         </div>
 
-        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '10px' }}>
-          {/* Hero Section */}
-          <div className="cf-white-box">
-            <div className="cf-box-header">🏆 CPI7 Competitive Programming Team - Cheater Detection System</div>
-            <div className="cf-box-content">
-              <div style={{ marginBottom: '15px' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '8px', color: '#333' }}>
-                  Professional Codeforces Submission Analysis
-                </h2>
-                <p style={{ fontSize: '13px', lineHeight: '1.5', color: '#666', marginBottom: '10px' }}>
-                  Developed by <strong>CPI7 Team</strong> (Cumilla Polytechnic Institute), founded by <strong>Al Kayes Rifat</strong>. 
-                  Our advanced detection system analyzes competitive programming submissions to ensure fair competition and maintain integrity in contests.
-                </p>
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', fontSize: '12px' }}>
-                  <span style={{ background: '#e8f4fd', color: '#0066ff', padding: '4px 8px', borderRadius: '3px' }}>
-                    🔍 Plagiarism Detection
-                  </span>
-                  <span style={{ background: '#e8f4fd', color: '#0066ff', padding: '4px 8px', borderRadius: '3px' }}>
-                    📊 Statistical Analysis
-                  </span>
-                  <span style={{ background: '#e8f4fd', color: '#0066ff', padding: '4px 8px', borderRadius: '3px' }}>
-                    ⚡ Real-time Results
-                  </span>
-                </div>
-              </div>
+        {/* Search Section */}
+        <div className="cf-white-box">
+          <div className="cf-box-header">🔍 Analyze Codeforces User</div>
+          <div className="cf-box-content">
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '10px' }}>
+              <input
+                className="cf-input"
+                placeholder="Enter Codeforces username (e.g., tourist, Petr)"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && analyzeUser()}
+                style={{ flex: 1, minWidth: '200px' }}
+              />
+              <button 
+                className="cf-button"
+                onClick={analyzeUser} 
+                disabled={loading}
+              >
+                {loading ? 'Analyzing...' : 'Analyze User'}
+              </button>
             </div>
+            <p style={{ fontSize: '11px', color: '#666' }}>
+              ⚡ Get instant analysis of submission patterns, detect suspicious activities, and ensure fair competitive programming
+            </p>
           </div>
+        </div>
 
-          {/* Search Section */}
-          <div className="cf-white-box">
-            <div className="cf-box-header">🔍 Analyze Codeforces User</div>
-            <div className="cf-box-content">
-              <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '10px' }}>
-                <input
-                  className="cf-input"
-                  placeholder="Enter Codeforces username (e.g., tourist, Petr)"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && analyzeUser()}
-                  style={{ flex: 1, minWidth: '200px' }}
-                />
-                <button 
-                  className="cf-button"
-                  onClick={analyzeUser} 
-                  disabled={loading}
-                >
-                  {loading ? 'Analyzing...' : 'Analyze User'}
-                </button>
-              </div>
-              <p style={{ fontSize: '11px', color: '#666' }}>
-                ⚡ Get instant analysis of submission patterns, detect suspicious activities, and ensure fair competitive programming
-              </p>
-            </div>
-          </div>
-
-          {/* User Info */}
+        {/* User Info */}
         {userInfo && (
           <div className="cf-white-box">
             <div className="cf-box-header">User Information</div>
@@ -428,183 +422,184 @@ const Index = () => {
                 </div>
               </div>
             )}
+          </>
+        )}
 
-          {/* About CPI7 Section */}
-          <div className="cf-white-box">
-            <div className="cf-box-header">🏆 About CPI7 Competitive Programming Team</div>
-            <div className="cf-box-content">
-              <div style={{ fontSize: '13px', lineHeight: '1.6' }}>
-                <p style={{ marginBottom: '12px' }}>
-                  <strong>CPI7</strong> is the elite competitive programming team of <strong>Cumilla Polytechnic Institute</strong>, 
-                  founded by <strong>Al Kayes Rifat</strong>. We're building a passionate community of programmers who solve 
-                  complex algorithmic problems through strategic thinking and excellence.
-                </p>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px', marginBottom: '15px' }}>
-                  <div>
-                    <h4 style={{ fontWeight: 'bold', marginBottom: '5px', color: '#0066ff' }}>🎯 Our Mission</h4>
-                    <p style={{ fontSize: '12px', color: '#666' }}>
-                      Mastering algorithms, data structures, and competitive programming techniques while maintaining fair competition.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 style={{ fontWeight: 'bold', marginBottom: '5px', color: '#0066ff' }}>🚀 Our Vision</h4>
-                    <p style={{ fontSize: '12px', color: '#666' }}>
-                      Creating a community where passionate programmers thrive through practice, research, and strategic problem-solving.
-                    </p>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                  <a href="#" className="cf-link" style={{ fontSize: '12px' }}>🏅 Vjudge Group</a>
-                  <a href="#" className="cf-link" style={{ fontSize: '12px' }}>📘 Facebook Community</a>
-                  <a href="#" className="cf-link" style={{ fontSize: '12px' }}>💬 Discord Server</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* FAQ Section */}
-          <div className="cf-white-box">
-            <div className="cf-box-header" style={{ cursor: 'pointer' }} onClick={() => setShowFAQ(!showFAQ)}>
-              ❓ Frequently Asked Questions {showFAQ ? '▼' : '▶'}
-            </div>
-            {showFAQ && (
-              <div className="cf-box-content">
-                <div style={{ fontSize: '13px' }}>
-                  {faqData.map((faq, index) => (
-                    <div key={index} style={{ marginBottom: '15px', borderBottom: '1px solid #eee', paddingBottom: '10px' }}>
-                      <h4 style={{ fontWeight: 'bold', marginBottom: '5px', color: '#333' }}>
-                        Q{index + 1}: {faq.question}
-                      </h4>
-                      <p style={{ color: '#666', lineHeight: '1.5', fontSize: '12px' }}>
-                        {faq.answer}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Features Section */}
-          <div className="cf-white-box">
-            <div className="cf-box-header">⚡ Why Choose CPI7 Cheater Detector?</div>
-            <div className="cf-box-content">
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px', fontSize: '12px' }}>
+        {/* About CPI7 Section */}
+        <div className="cf-white-box">
+          <div className="cf-box-header">🏆 About CPI7 Competitive Programming Team</div>
+          <div className="cf-box-content">
+            <div style={{ fontSize: '13px', lineHeight: '1.6' }}>
+              <p style={{ marginBottom: '12px' }}>
+                <strong>CPI7</strong> is the elite competitive programming team of <strong>Cumilla Polytechnic Institute</strong>, 
+                founded by <strong>Al Kayes Rifat</strong>. We're building a passionate community of programmers who solve 
+                complex algorithmic problems through strategic thinking and excellence.
+              </p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px', marginBottom: '15px' }}>
                 <div>
-                  <h4 style={{ fontWeight: 'bold', color: '#0066ff', marginBottom: '5px' }}>🔍 Advanced Detection</h4>
-                  <p style={{ color: '#666' }}>
-                    Sophisticated algorithm to detect plagiarism patterns and suspicious submission behaviors in competitive programming.
+                  <h4 style={{ fontWeight: 'bold', marginBottom: '5px', color: '#0066ff' }}>🎯 Our Mission</h4>
+                  <p style={{ fontSize: '12px', color: '#666' }}>
+                    Mastering algorithms, data structures, and competitive programming techniques while maintaining fair competition.
                   </p>
                 </div>
                 <div>
-                  <h4 style={{ fontWeight: 'bold', color: '#0066ff', marginBottom: '5px' }}>📊 Comprehensive Analysis</h4>
-                  <p style={{ color: '#666' }}>
-                    Detailed statistical analysis of submission patterns, success rates, and temporal behavior analysis.
-                  </p>
-                </div>
-                <div>
-                  <h4 style={{ fontWeight: 'bold', color: '#0066ff', marginBottom: '5px' }}>⚡ Real-time Results</h4>
-                  <p style={{ color: '#666' }}>
-                    Instant analysis using Codeforces API with live data processing and immediate feedback.
-                  </p>
-                </div>
-                <div>
-                  <h4 style={{ fontWeight: 'bold', color: '#0066ff', marginBottom: '5px' }}>🛡️ Fair Competition</h4>
-                  <p style={{ color: '#666' }}>
-                    Maintaining integrity in competitive programming contests and ensuring fair evaluation of skills.
+                  <h4 style={{ fontWeight: 'bold', marginBottom: '5px', color: '#0066ff' }}>🚀 Our Vision</h4>
+                  <p style={{ fontSize: '12px', color: '#666' }}>
+                    Creating a community where passionate programmers thrive through practice, research, and strategic problem-solving.
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* How it works Section */}
-          <div className="cf-white-box">
-            <div className="cf-box-header">🔧 How Our Detection System Works</div>
-            <div className="cf-box-content">
-              <div style={{ fontSize: '12px', lineHeight: '1.5' }}>
-                <div style={{ marginBottom: '10px' }}>
-                  <strong>Step 1:</strong> We fetch user data and submission history from Codeforces API
-                </div>
-                <div style={{ marginBottom: '10px' }}>
-                  <strong>Step 2:</strong> Advanced analysis of submission patterns, timing, and verdict distributions
-                </div>
-                <div style={{ marginBottom: '10px' }}>
-                  <strong>Step 3:</strong> Detection of "SKIPPED" verdicts which often indicate plagiarism by Codeforces system
-                </div>
-                <div style={{ marginBottom: '10px' }}>
-                  <strong>Step 4:</strong> Statistical evaluation and comprehensive reporting with actionable insights
-                </div>
-                <div style={{ 
-                  background: '#f8f8f8', 
-                  padding: '10px', 
-                  border: '1px solid #ddd',
-                  marginTop: '10px'
-                }}>
-                  <strong>Note:</strong> Our analysis is based on publicly available Codeforces data and uses proven methods 
-                  for detecting suspicious patterns in competitive programming submissions.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Contact & Social */}
-          <div className="cf-white-box">
-            <div className="cf-box-header">🤝 Connect with CPI7 Team</div>
-            <div className="cf-box-content">
-              <div style={{ fontSize: '12px', lineHeight: '1.6' }}>
-                <p style={{ marginBottom: '10px' }}>
-                  Join our growing community of competitive programmers and take your algorithmic skills to the next level!
-                </p>
-                <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', marginBottom: '10px' }}>
-                  <div>
-                    <strong>👨‍💻 Founder:</strong> Al Kayes Rifat
-                  </div>
-                  <div>
-                    <strong>🏫 Institution:</strong> Cumilla Polytechnic Institute
-                  </div>
-                  <div>
-                    <strong>🎯 Focus:</strong> Competitive Programming Excellence
-                  </div>
-                </div>
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                  <a href="#" className="cf-button" style={{ textDecoration: 'none', fontSize: '11px' }}>
-                    Join Vjudge Group
-                  </a>
-                  <a href="#" className="cf-button" style={{ textDecoration: 'none', fontSize: '11px' }}>
-                    Facebook Community
-                  </a>
-                  <a href="#" className="cf-button" style={{ textDecoration: 'none', fontSize: '11px' }}>
-                    Discord Server
-                  </a>
-                </div>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <a href="#" className="cf-link" style={{ fontSize: '12px' }}>🏅 Vjudge Group</a>
+                <a href="#" className="cf-link" style={{ fontSize: '12px' }}>📘 Facebook Community</a>
+                <a href="#" className="cf-link" style={{ fontSize: '12px' }}>💬 Discord Server</a>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Footer */}
-        <div style={{ 
-          background: '#f0f0f0', 
-          borderTop: '1px solid #ddd', 
-          padding: '15px 0', 
-          marginTop: '20px',
-          fontSize: '11px',
-          color: '#666',
-          textAlign: 'center'
-        }}>
-          <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 10px' }}>
-            <p>© 2025 CPI7 Competitive Programming Team | Cumilla Polytechnic Institute</p>
-            <p>Founded by Al Kayes Rifat | Advanced Codeforces Analysis & Cheater Detection</p>
-            <p style={{ marginTop: '5px' }}>
-              <a href="#" className="cf-link">Privacy Policy</a> | 
-              <a href="#" className="cf-link"> Terms of Service</a> | 
-              <a href="#" className="cf-link"> Contact Us</a>
-            </p>
+        {/* FAQ Section */}
+        <div className="cf-white-box">
+          <div className="cf-box-header" style={{ cursor: 'pointer' }} onClick={() => setShowFAQ(!showFAQ)}>
+            ❓ Frequently Asked Questions {showFAQ ? '▼' : '▶'}
+          </div>
+          {showFAQ && (
+            <div className="cf-box-content">
+              <div style={{ fontSize: '13px' }}>
+                {faqData.map((faq, index) => (
+                  <div key={index} style={{ marginBottom: '15px', borderBottom: '1px solid #eee', paddingBottom: '10px' }}>
+                    <h4 style={{ fontWeight: 'bold', marginBottom: '5px', color: '#333' }}>
+                      Q{index + 1}: {faq.question}
+                    </h4>
+                    <p style={{ color: '#666', lineHeight: '1.5', fontSize: '12px' }}>
+                      {faq.answer}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Features Section */}
+        <div className="cf-white-box">
+          <div className="cf-box-header">⚡ Why Choose CPI7 Cheater Detector?</div>
+          <div className="cf-box-content">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px', fontSize: '12px' }}>
+              <div>
+                <h4 style={{ fontWeight: 'bold', color: '#0066ff', marginBottom: '5px' }}>🔍 Advanced Detection</h4>
+                <p style={{ color: '#666' }}>
+                  Sophisticated algorithm to detect plagiarism patterns and suspicious submission behaviors in competitive programming.
+                </p>
+              </div>
+              <div>
+                <h4 style={{ fontWeight: 'bold', color: '#0066ff', marginBottom: '5px' }}>📊 Comprehensive Analysis</h4>
+                <p style={{ color: '#666' }}>
+                  Detailed statistical analysis of submission patterns, success rates, and temporal behavior analysis.
+                </p>
+              </div>
+              <div>
+                <h4 style={{ fontWeight: 'bold', color: '#0066ff', marginBottom: '5px' }}>⚡ Real-time Results</h4>
+                <p style={{ color: '#666' }}>
+                  Instant analysis using Codeforces API with live data processing and immediate feedback.
+                </p>
+              </div>
+              <div>
+                <h4 style={{ fontWeight: 'bold', color: '#0066ff', marginBottom: '5px' }}>🛡️ Fair Competition</h4>
+                <p style={{ color: '#666' }}>
+                  Maintaining integrity in competitive programming contests and ensuring fair evaluation of skills.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* How it works Section */}
+        <div className="cf-white-box">
+          <div className="cf-box-header">🔧 How Our Detection System Works</div>
+          <div className="cf-box-content">
+            <div style={{ fontSize: '12px', lineHeight: '1.5' }}>
+              <div style={{ marginBottom: '10px' }}>
+                <strong>Step 1:</strong> We fetch user data and submission history from Codeforces API
+              </div>
+              <div style={{ marginBottom: '10px' }}>
+                <strong>Step 2:</strong> Advanced analysis of submission patterns, timing, and verdict distributions
+              </div>
+              <div style={{ marginBottom: '10px' }}>
+                <strong>Step 3:</strong> Detection of "SKIPPED" verdicts which often indicate plagiarism by Codeforces system
+              </div>
+              <div style={{ marginBottom: '10px' }}>
+                <strong>Step 4:</strong> Statistical evaluation and comprehensive reporting with actionable insights
+              </div>
+              <div style={{ 
+                background: '#f8f8f8', 
+                padding: '10px', 
+                border: '1px solid #ddd',
+                marginTop: '10px'
+              }}>
+                <strong>Note:</strong> Our analysis is based on publicly available Codeforces data and uses proven methods 
+                for detecting suspicious patterns in competitive programming submissions.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Contact & Social */}
+        <div className="cf-white-box">
+          <div className="cf-box-header">🤝 Connect with CPI7 Team</div>
+          <div className="cf-box-content">
+            <div style={{ fontSize: '12px', lineHeight: '1.6' }}>
+              <p style={{ marginBottom: '10px' }}>
+                Join our growing community of competitive programmers and take your algorithmic skills to the next level!
+              </p>
+              <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', marginBottom: '10px' }}>
+                <div>
+                  <strong>👨‍💻 Founder:</strong> Al Kayes Rifat
+                </div>
+                <div>
+                  <strong>🏫 Institution:</strong> Cumilla Polytechnic Institute
+                </div>
+                <div>
+                  <strong>🎯 Focus:</strong> Competitive Programming Excellence
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <a href="#" className="cf-button" style={{ textDecoration: 'none', fontSize: '11px' }}>
+                  Join Vjudge Group
+                </a>
+                <a href="#" className="cf-button" style={{ textDecoration: 'none', fontSize: '11px' }}>
+                  Facebook Community
+                </a>
+                <a href="#" className="cf-button" style={{ textDecoration: 'none', fontSize: '11px' }}>
+                  Discord Server
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </>
+
+      {/* Footer */}
+      <div style={{ 
+        background: '#f0f0f0', 
+        borderTop: '1px solid #ddd', 
+        padding: '15px 0', 
+        marginTop: '20px',
+        fontSize: '11px',
+        color: '#666',
+        textAlign: 'center'
+      }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 10px' }}>
+          <p>© 2025 CPI7 Competitive Programming Team | Cumilla Polytechnic Institute</p>
+          <p>Founded by Al Kayes Rifat | Advanced Codeforces Analysis & Cheater Detection</p>
+          <p style={{ marginTop: '5px' }}>
+            <a href="#" className="cf-link">Privacy Policy</a> | 
+            <a href="#" className="cf-link"> Terms of Service</a> | 
+            <a href="#" className="cf-link"> Contact Us</a>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 
