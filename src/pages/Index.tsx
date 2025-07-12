@@ -1,10 +1,5 @@
+
 import React, { useState } from 'react';
-import { Search, Shield, AlertTriangle, CheckCircle, User, Calendar, Code, ExternalLink } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 
 interface Submission {
@@ -133,18 +128,24 @@ const Index = () => {
   };
 
   const formatDate = (seconds: number) => {
-    return new Date(seconds * 1000).toLocaleDateString();
+    return new Date(seconds * 1000).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   };
 
-  const getRatingColor = (rating?: number) => {
-    if (!rating) return 'text-gray-500';
-    if (rating < 1200) return 'text-gray-600';
-    if (rating < 1400) return 'text-green-600';
-    if (rating < 1600) return 'text-cyan-600';
-    if (rating < 1900) return 'text-blue-600';
-    if (rating < 2100) return 'text-purple-600';
-    if (rating < 2400) return 'text-orange-600';
-    return 'text-red-600';
+  const getRatingClass = (rating?: number) => {
+    if (!rating) return 'cf-rating-newbie';
+    if (rating < 1200) return 'cf-rating-newbie';
+    if (rating < 1400) return 'cf-rating-pupil';
+    if (rating < 1600) return 'cf-rating-specialist';
+    if (rating < 1900) return 'cf-rating-expert';
+    if (rating < 2100) return 'cf-rating-candidate-master';
+    if (rating < 2400) return 'cf-rating-master';
+    return 'cf-rating-grandmaster';
   };
 
   const getSubmissionUrl = (submission: Submission) => {
@@ -162,128 +163,109 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header - Codeforces style */}
-      <div className="bg-blue-600 text-white shadow-md">
-        <div className="max-w-6xl mx-auto px-4 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Shield className="h-8 w-8" />
-              <h1 className="text-2xl font-bold">CPI7 Cheater Detector</h1>
+    <div className="cf-content">
+      {/* Header - Exact Codeforces style */}
+      <div className="cf-header" style={{ padding: '8px 0', fontSize: '13px' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ fontSize: '16px', fontWeight: 'bold' }}>CPI7 Cheater Detector</span>
             </div>
-            <div className="text-sm">
+            <div style={{ fontSize: '11px' }}>
               Analyze Codeforces submissions for cheating patterns
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-6">
-        {/* Search Section - Codeforces style */}
-        <div className="bg-white border border-gray-200 rounded mb-6 shadow-sm">
-          <div className="bg-gray-100 border-b border-gray-200 px-4 py-2">
-            <h2 className="font-semibold text-gray-800 flex items-center gap-2">
-              <Search className="h-4 w-4" />
-              Enter Username
-            </h2>
-          </div>
-          <div className="p-4">
-            <div className="flex gap-3">
-              <Input
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '10px' }}>
+        {/* Search Section */}
+        <div className="cf-white-box">
+          <div className="cf-box-header">Enter Username</div>
+          <div className="cf-box-content">
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <input
+                className="cf-input"
                 placeholder="Enter Codeforces username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && analyzeUser()}
-                className="flex-1 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                style={{ flex: 1, minWidth: '200px' }}
               />
-              <Button 
+              <button 
+                className="cf-button"
                 onClick={analyzeUser} 
                 disabled={loading}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6"
               >
                 {loading ? 'Analyzing...' : 'Analyze'}
-              </Button>
+              </button>
             </div>
           </div>
         </div>
 
-        {/* User Info - Codeforces style */}
+        {/* User Info */}
         {userInfo && (
-          <div className="bg-white border border-gray-200 rounded mb-6 shadow-sm">
-            <div className="bg-gray-100 border-b border-gray-200 px-4 py-2">
-              <h2 className="font-semibold text-gray-800 flex items-center gap-2">
-                <User className="h-4 w-4" />
-                User Information
-              </h2>
-            </div>
-            <div className="p-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <span className="text-gray-600 text-sm">Handle:</span>
-                  <div className="font-semibold text-lg">{userInfo.handle}</div>
-                </div>
-                <div>
-                  <span className="text-gray-600 text-sm">Rating:</span>
-                  <div className={`font-bold text-lg ${getRatingColor(userInfo.rating)}`}>
-                    {userInfo.rating || 'Unrated'}
-                  </div>
-                </div>
-                <div>
-                  <span className="text-gray-600 text-sm">Max Rating:</span>
-                  <div className={`font-bold text-lg ${getRatingColor(userInfo.maxRating)}`}>
-                    {userInfo.maxRating || 'Unrated'}
-                  </div>
-                </div>
-              </div>
+          <div className="cf-white-box">
+            <div className="cf-box-header">User Information</div>
+            <div className="cf-box-content">
+              <table style={{ width: '100%' }}>
+                <tbody>
+                  <tr>
+                    <td style={{ fontWeight: 'bold', width: '100px' }}>Handle:</td>
+                    <td>{userInfo.handle}</td>
+                  </tr>
+                  <tr>
+                    <td style={{ fontWeight: 'bold' }}>Rating:</td>
+                    <td className={getRatingClass(userInfo.rating)} style={{ fontWeight: 'bold' }}>
+                      {userInfo.rating || 'Unrated'}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style={{ fontWeight: 'bold' }}>Max Rating:</td>
+                    <td className={getRatingClass(userInfo.maxRating)} style={{ fontWeight: 'bold' }}>
+                      {userInfo.maxRating || 'Unrated'}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         )}
 
         {/* Results */}
         {result && (
-          <div className="space-y-6">
-            {/* Analysis Summary - Codeforces style */}
-            <div className={`bg-white border rounded shadow-sm ${result.isCheat ? 'border-red-300' : 'border-green-300'}`}>
-              <div className={`border-b px-4 py-2 ${result.isCheat ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}`}>
-                <h2 className="font-semibold text-gray-800 flex items-center gap-2">
-                  {result.isCheat ? (
-                    <AlertTriangle className="h-4 w-4 text-red-600" />
-                  ) : (
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                  )}
-                  Analysis Result
-                </h2>
-              </div>
-              <div className="p-4">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  <div className="text-center p-3 bg-gray-50 rounded">
-                    <div className="text-2xl font-bold text-gray-800">{result.totalSubmissions}</div>
-                    <div className="text-sm text-gray-600">Total Submissions</div>
-                  </div>
-                  <div className="text-center p-3 bg-red-50 rounded">
-                    <div className="text-2xl font-bold text-red-600">{result.skippedSubmissions}</div>
-                    <div className="text-sm text-gray-600">Skipped Submissions</div>
-                  </div>
-                  <div className="text-center p-3 bg-orange-50 rounded">
-                    <div className="text-2xl font-bold text-orange-600">{result.skippedPercentage.toFixed(1)}%</div>
-                    <div className="text-sm text-gray-600">Skipped Percentage</div>
-                  </div>
-                  <div className="text-center p-3 bg-gray-50 rounded">
-                    <span className={`inline-block px-3 py-1 rounded text-sm font-semibold ${
-                      result.isCheat 
-                        ? 'bg-red-100 text-red-800 border border-red-200' 
-                        : 'bg-green-100 text-green-800 border border-green-200'
-                    }`}>
-                      {result.isCheat ? "SUSPICIOUS" : "CLEAN"}
-                    </span>
-                  </div>
-                </div>
+          <>
+            {/* Analysis Summary */}
+            <div className="cf-white-box">
+              <div className="cf-box-header">Analysis Result</div>
+              <div className="cf-box-content">
+                <table style={{ width: '100%', marginBottom: '10px' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ fontWeight: 'bold', width: '150px' }}>Total Submissions:</td>
+                      <td>{result.totalSubmissions}</td>
+                      <td style={{ fontWeight: 'bold', width: '150px' }}>Skipped Submissions:</td>
+                      <td style={{ color: '#cc0000', fontWeight: 'bold' }}>{result.skippedSubmissions}</td>
+                    </tr>
+                    <tr>
+                      <td style={{ fontWeight: 'bold' }}>Skipped Percentage:</td>
+                      <td style={{ color: '#cc0000', fontWeight: 'bold' }}>{result.skippedPercentage.toFixed(1)}%</td>
+                      <td style={{ fontWeight: 'bold' }}>Status:</td>
+                      <td>
+                        <span className={result.isCheat ? 'cf-status-skipped' : 'cf-status-clean'}>
+                          {result.isCheat ? "SUSPICIOUS" : "CLEAN"}
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 
-                <div className={`p-3 rounded text-sm ${
-                  result.isCheat 
-                    ? 'bg-red-50 text-red-800 border border-red-200' 
-                    : 'bg-green-50 text-green-800 border border-green-200'
-                }`}>
+                <div style={{ 
+                  padding: '8px', 
+                  background: result.isCheat ? '#fff0f0' : '#f0fff0',
+                  border: `1px solid ${result.isCheat ? '#ffcccc' : '#ccffcc'}`,
+                  fontSize: '12px'
+                }}>
                   {result.isCheat 
                     ? '⚠️ This user has suspicious activity! Skipped verdicts often indicate plagiarism detection.'
                     : '✅ No suspicious activity detected. This user appears to be clean.'}
@@ -291,90 +273,86 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Suspicious Submissions Table - Codeforces style */}
+            {/* Suspicious Submissions Table */}
             {result.isCheat && result.suspiciousSubmissions.length > 0 && (
-              <div className="bg-white border border-gray-200 rounded shadow-sm">
-                <div className="bg-gray-100 border-b border-gray-200 px-4 py-2">
-                  <h2 className="font-semibold text-gray-800 flex items-center gap-2">
-                    <Code className="h-4 w-4" />
-                    Skipped Submissions ({result.suspiciousSubmissions.length})
-                  </h2>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead className="bg-gray-50 border-b border-gray-200">
+              <div className="cf-white-box">
+                <div className="cf-box-header">Skipped Submissions ({result.suspiciousSubmissions.length})</div>
+                <div className="cf-box-content" style={{ padding: 0 }}>
+                  <table className="cf-table">
+                    <thead>
                       <tr>
-                        <th className="text-left px-4 py-3 font-medium text-gray-600">Problem</th>
-                        <th className="text-left px-4 py-3 font-medium text-gray-600">Contest</th>
-                        <th className="text-left px-4 py-3 font-medium text-gray-600">Language</th>
-                        <th className="text-left px-4 py-3 font-medium text-gray-600">Date</th>
-                        <th className="text-left px-4 py-3 font-medium text-gray-600">Rating</th>
-                        <th className="text-left px-4 py-3 font-medium text-gray-600">Status</th>
-                        <th className="text-left px-4 py-3 font-medium text-gray-600">Links</th>
+                        <th>Problem</th>
+                        <th>Contest</th>
+                        <th>Language</th>
+                        <th>Date</th>
+                        <th>Rating</th>
+                        <th>Status</th>
+                        <th>Links</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {result.suspiciousSubmissions.map((submission, index) => (
-                        <tr key={submission.id} className={`border-b border-gray-100 hover:bg-gray-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-25'}`}>
-                          <td className="px-4 py-3">
-                            <div>
-                              <div className="font-medium text-blue-600 hover:text-blue-800">
-                                {submission.problem.name}
-                              </div>
-                              <div className="text-xs text-gray-500">Problem {submission.problem.index}</div>
+                      {result.suspiciousSubmissions.map((submission) => (
+                        <tr key={submission.id}>
+                          <td>
+                            <div style={{ fontWeight: 'bold' }}>
+                              {submission.problem.name}
                             </div>
+                            <div className="cf-small-text">Problem {submission.problem.index}</div>
                           </td>
-                          <td className="px-4 py-3">
+                          <td>
                             {submission.problem.contestId ? (
-                              <span className="text-blue-600">Contest {submission.problem.contestId}</span>
+                              <a href={`https://codeforces.com/contest/${submission.problem.contestId}`} 
+                                 className="cf-link" target="_blank" rel="noopener noreferrer">
+                                Contest {submission.problem.contestId}
+                              </a>
                             ) : (
-                              <span className="text-gray-400">No Contest</span>
+                              <span style={{ color: '#999' }}>No Contest</span>
                             )}
                           </td>
-                          <td className="px-4 py-3">
-                            <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-mono">
+                          <td>
+                            <span style={{ 
+                              background: '#f0f0f0', 
+                              padding: '2px 4px', 
+                              fontSize: '11px',
+                              fontFamily: 'monospace'
+                            }}>
                               {submission.programmingLanguage}
                             </span>
                           </td>
-                          <td className="px-4 py-3">
-                            <div className="flex items-center gap-1 text-gray-600">
-                              <Calendar className="h-3 w-3" />
-                              {formatDate(submission.creationTimeSeconds)}
-                            </div>
+                          <td className="cf-small-text">
+                            {formatDate(submission.creationTimeSeconds)}
                           </td>
-                          <td className="px-4 py-3">
+                          <td>
                             {submission.problem.rating ? (
-                              <span className={`font-semibold ${getRatingColor(submission.problem.rating)}`}>
+                              <span className={getRatingClass(submission.problem.rating)} style={{ fontWeight: 'bold' }}>
                                 {submission.problem.rating}
                               </span>
                             ) : (
-                              <span className="text-gray-400">Unrated</span>
+                              <span style={{ color: '#999' }}>Unrated</span>
                             )}
                           </td>
-                          <td className="px-4 py-3">
-                            <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-semibold border border-red-200">
-                              SKIPPED
-                            </span>
+                          <td>
+                            <span className="cf-status-skipped">SKIPPED</span>
                           </td>
-                          <td className="px-4 py-3">
-                            <div className="flex gap-1">
+                          <td>
+                            <div style={{ display: 'flex', gap: '4px' }}>
                               <a
                                 href={getSubmissionUrl(submission)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors border border-blue-200"
+                                className="cf-link"
+                                style={{ fontSize: '11px' }}
                               >
-                                <ExternalLink className="h-3 w-3" />
-                                Sub
+                                [Sub]
                               </a>
                               <a
                                 href={getProblemUrl(submission)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-xs bg-green-100 hover:bg-green-200 text-green-700 px-2 py-1 rounded transition-colors border border-green-200"
+                                className="cf-link"
+                                style={{ fontSize: '11px' }}
                               >
-                                <ExternalLink className="h-3 w-3" />
-                                Prob
+                                [Prob]
                               </a>
                             </div>
                           </td>
@@ -385,20 +363,18 @@ const Index = () => {
                 </div>
               </div>
             )}
-          </div>
+          </>
         )}
 
-        {/* Info Section - Codeforces style */}
-        <div className="bg-white border border-gray-200 rounded mt-6 shadow-sm">
-          <div className="bg-gray-100 border-b border-gray-200 px-4 py-2">
-            <h2 className="font-semibold text-gray-800">How it works</h2>
-          </div>
-          <div className="p-4">
-            <div className="space-y-2 text-gray-700 text-sm">
-              <p>• This tool analyzes Codeforces submissions to detect potential cheating</p>
-              <p>• "SKIPPED" verdicts often indicate plagiarism detected by Codeforces</p>
-              <p>• The analysis is based on publicly available Codeforces API data</p>
-              <p>• Multiple skipped submissions may indicate suspicious activity</p>
+        {/* Info Section */}
+        <div className="cf-white-box">
+          <div className="cf-box-header">How it works</div>
+          <div className="cf-box-content">
+            <div style={{ fontSize: '12px', lineHeight: '1.5' }}>
+              <div>• This tool analyzes Codeforces submissions to detect potential cheating</div>
+              <div>• "SKIPPED" verdicts often indicate plagiarism detected by Codeforces</div>
+              <div>• The analysis is based on publicly available Codeforces API data</div>
+              <div>• Multiple skipped submissions may indicate suspicious activity</div>
             </div>
           </div>
         </div>

@@ -3,88 +3,86 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Codeforces exact color scheme and styling */
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 0 0% 0%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 0%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 0%;
 
-    --primary: 217 91% 47%; /* Codeforces blue */
-    --primary-foreground: 210 40% 98%;
+    --primary: 210 100% 50%; /* Codeforces exact blue #0066FF */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 0%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 217 91% 47%; /* Codeforces blue for focus rings */
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 210 100% 50%;
 
-    --radius: 0.375rem; /* Slightly smaller radius like Codeforces */
+    --radius: 0rem; /* Codeforces uses sharp corners */
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 0 0% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 0 0% 95%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 210 100% 50%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 217 91% 59.8%; /* Lighter blue for dark mode */
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 210 100% 60%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 95%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 217 91% 59.8%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 210 100% 60%;
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 210 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 210 100% 60%;
   }
 }
 
@@ -95,13 +93,138 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Codeforces-like font */
+    font-family: "Helvetica", "Arial", sans-serif; /* Codeforces exact font */
+    font-size: 13px; /* Codeforces standard font size */
+    line-height: 1.4;
   }
+
+  /* Codeforces specific styles */
+  .cf-header {
+    background: #0066FF;
+    color: white;
+    font-weight: bold;
+  }
+
+  .cf-content {
+    background: #f8f8f8;
+    min-height: 100vh;
+  }
+
+  .cf-white-box {
+    background: white;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+
+  .cf-box-header {
+    background: #f0f0f0;
+    border-bottom: 1px solid #ddd;
+    padding: 8px 12px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .cf-box-content {
+    padding: 12px;
+  }
+
+  .cf-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .cf-table th {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 6px 8px;
+    text-align: left;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .cf-table td {
+    border: 1px solid #ddd;
+    padding: 6px 8px;
+    vertical-align: middle;
+  }
+
+  .cf-table tr:hover {
+    background: #f5f5f5;
+  }
+
+  .cf-button {
+    background: #0066FF;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .cf-button:hover {
+    background: #0052CC;
+  }
+
+  .cf-input {
+    border: 1px solid #ccc;
+    padding: 4px 6px;
+    font-size: 12px;
+    font-family: "Helvetica", "Arial", sans-serif;
+  }
+
+  .cf-input:focus {
+    border-color: #0066FF;
+    outline: none;
+  }
+
+  .cf-link {
+    color: #0066FF;
+    text-decoration: none;
+  }
+
+  .cf-link:hover {
+    text-decoration: underline;
+  }
+
+  .cf-small-text {
+    font-size: 11px;
+    color: #666;
+  }
+
+  .cf-status-skipped {
+    background: #ffcccc;
+    color: #cc0000;
+    padding: 2px 4px;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 2px;
+  }
+
+  .cf-status-clean {
+    background: #ccffcc;
+    color: #008800;
+    padding: 2px 4px;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 2px;
+  }
+
+  .cf-rating-newbie { color: #808080; }
+  .cf-rating-pupil { color: #008000; }
+  .cf-rating-specialist { color: #03A89E; }
+  .cf-rating-expert { color: #0000FF; }
+  .cf-rating-candidate-master { color: #AA00AA; }
+  .cf-rating-master { color: #FF8C00; }
+  .cf-rating-grandmaster { color: #FF0000; }
 }
 
-/* Codeforces-like styling */
+/* Remove Tailwind's default styles that conflict with Codeforces */
 @layer utilities {
-  .bg-gray-25 {
-    background-color: #fafafa;
+  .cf-reset {
+    all: unset;
   }
 }
